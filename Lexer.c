@@ -3,7 +3,7 @@
  *
  *  Created on: 10-Mar-2014
  *      Author: Mukul Anand
- *      Author: Abhishek Bansal
+ *gcc      Author: Abhishek Bansal
  */
 
 /*
@@ -17,6 +17,7 @@
  *
  */
 #include "Lexer.h"
+#include "LexerDef.h"
 FILE *getStream(FILE *fp, Buffer B, buffersize k){
 
 	fread(B,sizeof(char),k,fp);
@@ -24,7 +25,7 @@ FILE *getStream(FILE *fp, Buffer B, buffersize k){
 }
 
 
-
+gcc
 /*
  * initializes the lookup table with the keywords
  * from the file
@@ -34,11 +35,10 @@ FILE *getStream(FILE *fp, Buffer B, buffersize k){
 void initialize_lookUpTable(){
 	int i =0;
 	FILE *fp=fopen("KEYWORDS.txt","r+");
-	while(fscanf(fp,"%s %s",lookUptable[0][i],lookUpTable[1][i++]));
+	while(fscanf(fp,"%s %s",lookUpTable[0][i],lookUpTable[1][i++]));
 
 	fclose(fp);
 }
-
 
 
 
@@ -56,7 +56,8 @@ FILE *initializeBuffer(FILE *fp){
 }
 
 
-/*
+/*[anand@anand localproject]$ 
+
  * This function reads the input character stream and uses efficient mechanism to recognize lexemes.
  *  The function tokenizes the lexeme appropriately and returns all relevant information
  *  it collects in this phase (lexical analysis phase) encapsulated as  tokenInfo.
@@ -68,7 +69,7 @@ FILE *initializeBuffer(FILE *fp){
  * 		fp- file stream pointer to source code
  */
 tokenPtr getNextToken(FILE **fp){
-	return findToken(*fp);
+	return findToken(fp);
 
 }
 
@@ -606,7 +607,7 @@ int searchLookUpTable(const char *comparisonString){
 tokenPtr tokenize(Token token , long linenumber, Lexeme lexeme , Value value){
 	tokenPtr tempptr;
 
-	tempptr=(struct tokenInfo *)malloc(sizeof(struct tokenInfo));
+	tempptr=(TokenPtr)malloc(sizeof(struct tokenInfo));
 	strcpy(tempptr->token,token);
 	tempptr->linenumber =linenumber;
 	strcpy(tempptr->lexeme, lexeme);
